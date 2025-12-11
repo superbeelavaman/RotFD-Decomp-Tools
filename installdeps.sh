@@ -1,18 +1,36 @@
 #!/bin/env bash
 
+PACKAGEMANAGER=
+
+
+echo "Detecting your package manager and updating package lists..."
+if (command -v pacman >/dev/null); then
+	PACKAGEMANAGER="pacman -S"
+	sudo pacman -Sy
+elif (command -v apt >/dev/null); then
+	PACKAGEMANAGER="apt install"
+	sudo apt update
+else
+	echo "no supported package manager installed. you're on your own."
+
+
 if (command -v git >/dev/null); then echo -n ""; else
-	echo "Git is not installed. Please use your system"
-	echo "  package manager to install git."
-	echo "  e.g. \`sudo apt install git\` on ubuntu"
-	echo "  or \`sudo pacman -S git\` on arch."
-	exit 1
+	if [ null$PACKAGEMANAGER = null ]; then
+		echo "Git is not installed. Please use your system"
+		echo "  package manager to install git."
+		exit 1
+	else	
+		$PACKAGEMANAGER git
+	fi
 fi
 if (command -v cargo >/dev/null); then echo -n ""; else
-	echo "Cargo is not installed. Please use your system"
-	echo "  package manager to install cargo."
-	echo "  e.g. \`sudo apt install cargo\` on ubuntu"
-	echo "  or \`sudo pacman -S cargo\` on arch."
-	exit 1
+	if [ null$PACKAGEMANAGER = null ]; then
+		echo "Cargo is not installed. Please use your system"
+		echo "  package manager to install cargo."
+		exit 1
+	else
+		$PACKAGEMANAGER cargo
+	fi
 fi
 
 mkdir deps
@@ -49,8 +67,10 @@ curl -o "./python-2.1.exe" "https://www.python.org/ftp/python/2.1.3/Python-2.1.3
 echo "download complete."
 
 if (command -v wine >/dev/null) then echo -n ""; else
-	echo "Wine is not installed. Please use your system"
-	echo "  package manager to install wine."
-	echo "  e.g. \`sudo apt install wine\` on ubuntu"
-	echo "  or \`sudo pacman -S wine\` on arch."
+	if [ null$PACKAGEMANAGER = null ]; then
+		echo "Wine is not installed. Please use your system"
+		echo "  package manager to install wine."
+	else
+		$PACKAGEMANAGER wine
+	fi
 fi
