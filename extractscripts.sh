@@ -3,7 +3,7 @@
 # All filepaths referenced here are relative to the current working directory. This is to allow the tool to be placed anywhere on $PATH as 
 # long as `installdeps.sh` was able to generate the compilation dependencies folder
 
-DISCFILESPATH="./GQSE78"
+DISCFILESPATH="./GSQE78"
 deps/gcm extract GSQE78.iso $DISCFILESPATH  #extract files from disc
 
 DATAPATH="$DISCFILESPATH/DATA/"
