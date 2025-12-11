@@ -43,7 +43,7 @@ DecompylePycFiles() {
 		dd if=$1$k of=tmp.pyc bs=1 skip=4 2>/dev/null # remove first 4 bytes of file (random garbage?) Will be changed if needed.
 		rm $1$k
 		mv tmp.pyc $1$k
-		if [[ "$k" == *".pyc" ]]; then
+		if [[ "${k//.PYC/.pyc}" == *".pyc" ]]; then
 			pycdc -c $1$k -v 2.1 -o ${1//$DECOMPATH/$SCRIPPATH}${k//.PYC/.py} #decompile pyc file to the human readable .py format
 		else
 			cp $1$k ${1//$DECOMPATH/$SCRIPPATH}$k
