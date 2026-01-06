@@ -12,7 +12,7 @@ elif (command -v apt >/dev/null); then
 	sudo apt update
 else
 	echo "no supported package manager installed. you're on your own."
-
+fi
 
 if (command -v git >/dev/null); then echo -n ""; else
 	if [ null$PACKAGEMANAGER = null ]; then
